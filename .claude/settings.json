@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(CMakeLists.txt)",
+      "Read(Makefile)",
+      "Read(README.md)",
+      "Read(**/*.py)",
+      "Read(**/*.yaml)",
+      "Read(**/*.md)",
+      "Read(**/*.txt)",
+      "Grep",
+      "Glob",
+      "LS",
+
+      "Bash(cmake:*)",
+      "Bash(cmake.exe:*)",
+      "Bash(msbuild:*)",
+      "Bash(cl:*)",
+      "Bash(ninja:*)",
+      "Bash(ninja.exe:*)",
+
+      "Bash(ctest:*)",
+      "Bash(ctest.exe:*)",
+
+      "Bash(clang-format:*)",
+      "Bash(clang-tidy:*)",
+
+      "WebFetch(domain:en.cppreference.com)",
+      "WebFetch(domain:isocpp.org)",
+      "WebFetch(domain:github.com)"
+    ],
+
+    "deny": [
+      "Read(./.env*)",
+      "Read(C:/Users/*/.ssh/**)",
+      "Read(C:\\Users\\*\\.ssh\\**)",
+      "Read(/etc/passwd)",
+      "Bash(rm:*)",
+      "Bash(del:*)",
+      "Bash(remove-item:*)",
+      "Bash(git:push:*)"
+    ],
+
+    "ask": [
+      "Write",
+      "Edit",
+      "MultiEdit",
+
+      "Bash(git:add:*)",
+      "Bash(git:commit:*)",
+
+      "Bash(pip:install:*)",
+      "Bash(choco:install:*)"
+    ],
+
+    "defaultMode": "default"
+  },
+
+  "sandbox": {
+    "autoAllowBashIfSandboxed": true,
+    "enabled": true
+  }
+}

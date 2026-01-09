@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(speckit.implement)",
+      "Bash(powershell.exe:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(uv run python:*)"
+    ]
+  }
+}

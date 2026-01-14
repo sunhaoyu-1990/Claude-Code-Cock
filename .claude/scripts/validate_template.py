@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 模板验证脚本
-检查 CLAUDE.md 和 PROJECT_CONTEXT.md 中的占位符是否已填写
+检查 CLAUDE.md 中的占位符是否已填写
 """
 
 import re
@@ -16,12 +16,6 @@ REQUIRED_PLACEHOLDERS = {
         r"\{语言版本\}",
         r"\{主要框架\}",
         r"\{测试框架\}",
-    ],
-    "PROJECT_CONTEXT.md": [
-        r"\{project_name\}",
-        r"\{project_type\}",
-        r"\{primary_language\}",
-        r"\{language_version\}",
     ]
 }
 
@@ -49,17 +43,6 @@ def main():
         print("✅ CLAUDE.md 模板验证通过")
     else:
         print("❌ CLAUDE.md 存在未填写的必填项:")
-        for issue in issues:
-            print(f"  - {issue}")
-
-    # 检查 PROJECT_CONTEXT.md
-    project_ctx = Path("PROJECT_CONTEXT.md")
-    is_valid, issues = check_placeholders(project_ctx, "PROJECT_CONTEXT.md")
-
-    if is_valid:
-        print("✅ PROJECT_CONTEXT.md 模板验证通过")
-    else:
-        print("❌ PROJECT_CONTEXT.md 存在未填写的必填项:")
         for issue in issues:
             print(f"  - {issue}")
 

@@ -68,9 +68,9 @@ Claude 在执行任何任务前，必须按顺序通过以下 4 道门禁：
 **冲突裁决优先级（高→低）**：
 1. constitution.md
 2. BASE_CLAUDE.md（本文件）
-3. 项目级 CLAUDE.md
+3. 项目级 CLAUDE.md（包含规范与上下文）
 4. Language Profile
-5. PROJECT_CONTEXT / specs / design / ADR / README / 现有代码实现
+5. specs / design / ADR / README / 现有代码实现
 
 ### 2.2 强制规则
 

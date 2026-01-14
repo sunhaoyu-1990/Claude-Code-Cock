@@ -67,9 +67,8 @@
 │  ├─ settings.json                # 权限与沙箱配置
 │  └─ settings.local.json          # 本地覆盖配置
 │
-└─ TEMPLATES/                      # 文档模板
-   ├─ CLAUDE-tem.md                # 项目级 CLAUDE.md 模板
-   └─ PROJECT_CONTEXT-tem.md        # 项目上下文模板
+└─ templates/                      # 文档模板
+   └─ CLAUDE-tem.md                # 项目级 CLAUDE.md 模板（包含规范与上下文）
 ```
 
 ---
@@ -94,12 +93,11 @@
 
 1. `constitution.md`
 2. `BASE_CLAUDE.md`
-3. 项目级 `CLAUDE.md`
+3. 项目级 `CLAUDE.md`（包含规范与上下文）
 4. Language Profile
-5. 项目上下文（PROJECT_CONTEXT）
-6. specs / design / ADR 等需求文档
-7. README / 说明文档
-8. 现有代码实现（允许被修正）
+5. specs / design / ADR 等需求文档
+6. README / 说明文档
+7. 现有代码实现（允许被修正）
 
 ---
 
@@ -387,7 +385,6 @@ Claude Code 的权限与沙箱配置：
 ```bash
 # 复制模板
 cp .claude/templates/CLAUDE-tem.md <your-project>/CLAUDE.md
-cp .claude/templates/PROJECT_CONTEXT-tem.md <your-project>/PROJECT_CONTEXT.md
 ```
 
 ### 2. 填写项目信息

@@ -545,8 +545,7 @@ echo "➡️  下一步: 在 Claude Code 中调用 /skill speckit-specify ${FEAT
 
 **相关文档**：
 - [命令速查](COMMANDS.md)
-- [快速开始指南](QUICKSTART.md)
-- [故障排除指南](TROUBLESHOOTING.md)
+- [快速开始指南](QUICKSTART.md)（包含故障排除章节）
 - [Speckit Skills](skills/)
 
 ---

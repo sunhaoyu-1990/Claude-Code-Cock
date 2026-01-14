@@ -82,7 +82,7 @@ description: 基于既有功能规格说明（Spec）与计划模板，执行项
 ### 3️⃣ 了解现有实现
 
 必须先了解项目中的相关实现模式：
-可以查看@README.md @CLAUDE.md @PROJECT_CONTEXT.md来快速了解项目框架
+可以查看 @README.md @CLAUDE.md 来快速了解项目框架
 
 ```bash
 # 查看相关模块实现

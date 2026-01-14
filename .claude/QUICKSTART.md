@@ -82,30 +82,13 @@ python .claude/scripts/validate_template.py
 预期输出：
 ```
 ✅ CLAUDE.md 模板验证通过
-✅ PROJECT_CONTEXT.md 模板验证通过
 ```
 
 ---
 
-## 步骤 3：配置项目上下文（可选，3 分钟）
+## 步骤 3：验证安装（2 分钟）
 
-### 3.1 复制模板
-
-```bash
-cp .claude/templates/PROJECT_CONTEXT-tem.md PROJECT_CONTEXT.md
-```
-
-### 3.2 填写项目信息
-
-- 项目结构描述
-- 关键模块说明
-- 构建与测试命令
-
----
-
-## 步骤 4：验证安装（2 分钟）
-
-### 4.1 运行所有检查
+### 3.1 运行所有检查
 
 ```bash
 # 检查模板文件和引用
@@ -118,15 +101,15 @@ python .claude/scripts/check_compliance.py
 python .claude/scripts/check_workflow.py
 ```
 
-### 4.2 预期结果
+### 3.2 预期结果
 
 所有脚本应返回 `0` 退出码，显示 ✅ 通过信息。
 
 ---
 
-## 步骤 5：开始使用（核心流程）
+## 步骤 4：开始使用（核心流程）
 
-### 5.1 理解双模式开发
+### 4.1 理解双模式开发
 
 Claude Code 会根据任务复杂度自动选择开发模式：
 
@@ -245,9 +228,216 @@ Claude 会自动检测是否需要 Complex Mode。如果检测到强制触发条
 
 ### Q4：模板文件在哪里？
 
-- 项目配置模板：`.claude/templates/`
+- 项目配置模板：`.claude/templates/CLAUDE-tem.md`
 - 规格说明模板：`specs/templates/`
 - 错误处理模板：`.claude/templates/`
+
+---
+
+## 故障排除（Troubleshooting）
+
+当配置框架时遇到问题，按以下流程快速诊断：
+
+### 快速诊断流程
+
+```
+遇到问题
+    ↓
+是否为 Claude 执行问题？
+    ├─ 是 → Claude 执行问题（见下方）
+    └─ 否 → 是否为配置/环境问题？
+        ├─ 是 → 配置/环境问题（见下方）
+        └─ 否 → 运行完整诊断脚本
+```
+
+### Claude 执行问题
+
+#### 问题 1：Claude 说找不到 constitution.md
+
+**症状**：`错误：无法找到 @.claude/constitution.md`
+
+**原因**：路径引用错误、文件不存在、使用了错误的路径分隔符
+
+**解决方案**：
+```bash
+# 检查文件是否存在
+ls .claude/constitution.md
+
+# 检查 CLAUDE.md 中的引用
+grep "constitution.md" CLAUDE.md
+
+# 正确的引用格式：@.claude/constitution.md（使用 / 而非 \）
+```
+
+**错误代码**：E001
+
+---
+
+#### 问题 2：Claude 不遵循规范
+
+**症状**：Claude 跳过了 Complex Mode、没有执行错误总结流程、违反了宪法条款
+
+**原因**：规范执行门禁未生效、BASE_CLAUDE.md 未正确加载
+
+**解决方案**：
+```bash
+# 检查 BASE_CLAUDE.md 是否包含规范执行门禁
+head -n 100 .claude/BASE_CLAUDE.md | grep "规范执行门禁"
+
+# 检查 constitution.md 是否包含强制要求
+tail -n 50 .claude/constitution.md | grep "规范执行强制要求"
+
+# 重新加载 Claude Code
+```
+
+---
+
+#### 问题 3：Skill Chain 执行中断
+
+**症状**：`错误：无法执行 /speckit.plan，原因：上游产物不存在`
+
+**原因**：上游 Skill 未执行、Feature 目录不存在、文件命名不正确
+
+**解决方案**：
+```bash
+# 检查工作流状态
+python .claude/scripts/check_workflow.py
+
+# 检查 Feature 目录和必需文件
+ls specs/<feature_dir>/
+ls specs/<feature_dir>/spec.md
+ls specs/<feature_dir>/clarify.md
+```
+
+**错误代码**：E004
+
+---
+
+#### 问题 4：模板文件找不到
+
+**症状**：`错误：无法找到模板文件 specs/templates/plan-template.md`
+
+**原因**：模板文件不存在、路径引用格式错误、Windows 路径风格（`\`）不兼容
+
+**解决方案**：
+```bash
+# 检查模板文件是否存在
+ls specs/templates/
+
+# 正确引用格式：specs/templates/plan-template.md（使用 /）
+# 错误格式：@specs\templates\plan-template.md
+
+# 运行模板检查
+python .claude/scripts/check_templates.py
+```
+
+**错误代码**：E002
+
+---
+
+### 配置/环境问题
+
+#### 问题 5：CLAUDE.md 模板验证失败
+
+**症状**：
+```
+❌ CLAUDE.md 存在未填写的必填项:
+  - 未填写: {项目名称}
+  - 未填写: {主要语言}
+```
+
+**原因**：复制模板后未填写必填项、占位符未被替换
+
+**解决方案**：
+```bash
+# 运行验证脚本
+python .claude/scripts/validate_template.py
+
+# 编辑 CLAUDE.md，替换所有占位符
+# {项目名称} → My Awesome Project
+# {主要语言} → Python
+# {语言版本} → 3.11
+# {主要框架} → FastAPI
+# {测试框架} → pytest
+```
+
+**错误代码**：E003
+
+---
+
+#### 问题 6：Python 脚本无法运行
+
+**症状**：`错误：找不到模块 'pathlib'` 或 `语法错误：f-string`
+
+**原因**：Python 版本过低（需要 Python 3.10+）
+
+**解决方案**：
+```bash
+# 检查 Python 版本
+python --version
+
+# 使用 uv 管理 Python 环境
+uv run python .claude/scripts/check_compliance.py
+```
+
+**错误代码**：E006
+
+---
+
+#### 问题 7：Profile 不生效
+
+**症状**：Claude 没有遵循语言特定的规范（如类型检查被忽略）
+
+**原因**：CLAUDE.md 未引用 Profile、Profile 路径错误、Profile 文件不存在
+
+**解决方案**：
+```bash
+# 检查 Profile 引用
+grep "PROFILES" CLAUDE.md
+
+# 正确格式：@.claude/PROFILES/python.md
+# 错误格式：.claude/profiles/python.md
+
+# 检查可用的 Profile
+ls .claude/PROFILES/
+```
+
+**错误代码**：E005
+
+---
+
+### 完整诊断脚本
+
+当遇到问题时，首先运行完整诊断：
+
+```bash
+# 运行所有检查脚本
+python .claude/scripts/check_compliance.py && \
+python .claude/scripts/check_templates.py && \
+python .claude/scripts/check_workflow.py && \
+python .claude/scripts/validate_template.py
+```
+
+### 手动检查清单
+
+- [ ] `.claude/constitution.md` 存在
+- [ ] `.claude/BASE_CLAUDE.md` 存在
+- [ ] `CLAUDE.md` 存在且必填项已填写
+- [ ] Profile 引用正确（`@.claude/PROFILES/*.md`）
+- [ ] 模板文件存在
+- [ ] Python 版本 >= 3.10
+- [ ] 在 Git 仓库中
+
+### 错误代码速查表
+
+| 错误代码 | 错误信息 | 解决方案 |
+|----------|----------|----------|
+| E001 | 找不到 constitution.md | 检查路径引用，运行 check_compliance.py |
+| E002 | 模板文件不存在 | 运行 check_templates.py |
+| E003 | 必填项未填写 | 运行 validate_template.py |
+| E004 | 上游产物不存在 | 检查工作流状态，按顺序执行 Skills |
+| E005 | Profile 未引用 | 在 CLAUDE.md 中添加 Profile 引用 |
+| E006 | Python 版本过低 | 升级到 Python 3.10+ |
 
 ---
 

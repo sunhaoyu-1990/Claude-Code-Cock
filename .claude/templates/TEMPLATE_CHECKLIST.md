@@ -11,7 +11,7 @@
 本检查清单用于验证 Claude Code 驾驶舱框架的所有模板文件是否符合规范要求。
 
 **检查范围**：
-- 项目级配置模板（CLAUDE.md、PROJECT_CONTEXT.md）
+- 项目级配置模板（CLAUDE.md，包含规范与上下文）
 - 规格说明模板（spec.md）
 - 计划模板（plan.md）
 - 检查清单模板（checklist.md）
@@ -40,7 +40,7 @@
 #### Profile 引用
 
 - [ ] 引用了至少一个 Language Profile
-- [ ] 引用路径格式正确：`@.claude/PROFILES/{language}.md`
+- [ ] 引用路径格式正确：`@.claude/profiles/{language}.md`
 - [ ] 使用的 Profile 与项目语言匹配
 
 #### 规范引用
@@ -54,6 +54,9 @@
 - [ ] 项目描述清晰
 - [ ] 技术栈明确
 - [ ] 开发规范已声明
+- [ ] 项目结构描述完整
+- [ ] 依赖与能力边界已定义
+- [ ] 模块边界与职责已说明
 
 **验证命令**：
 ```bash
@@ -61,23 +64,6 @@ python .claude/scripts/validate_template.py
 ```
 
 ---
-
-### 1.2 PROJECT_CONTEXT.md 检查清单
-
-#### 文件存在性
-
-- [ ] 文件存在于项目根目录
-
-#### 必填占位符
-
-- [ ] `{project_name}` 已填写
-- [ ] `{project_type}` 已填写
-- [ ] `{primary_language}` 已填写
-- [ ] `{language_version}` 已填写
-
-#### 内容完整性
-
-- [ ] 项目结构描述
 - [ ] 关键模块说明
 - [ ] 构建与测试命令
 

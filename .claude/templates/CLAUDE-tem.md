@@ -52,6 +52,14 @@ Claude 的行为逻辑是：
 你是一个资深的 {主要语言} 工程师，正在协助开发本项目。
 你的所有行为必须遵守组织级 BASE_CLAUDE.md。
 
+### 主语言偏好（Language Preference）
+
+- **默认**：中文（简体）（遵循 constitution.md 第 0.1 节）
+- **项目覆盖**：{language_preference: 默认中文}（可选：English/中文）
+
+> 若项目需要使用英文作为主语言，请明确声明：**主语言偏好**：English（中文作为辅助语言）
+> 未声明则使用默认值（中文）。
+
 ---
 
 ## 3️⃣ 项目信息（Project Metadata）

@@ -7,6 +7,69 @@
 
 ---
 
+## Claude Code 自定义命令
+
+### init-claude-context
+
+**用途**：为新项目初始化并生成 CLAUDE.md 文件
+
+**使用场景**：
+- 从零开始的新项目
+- 有需求文档（README/SPEC/PRD）的新项目
+- 需要逐步配置的新项目
+
+**调用方式**：
+```bash
+# 自动模式（基于需求文档自动生成）
+/init-claude-context --auto
+
+# 互动模式（逐步引导生成）
+/init-claude-context --interactive
+
+# 无参数（自动检测需求文件）
+/init-claude-context
+```
+
+**执行内容**：
+- 检测并读取需求文件（README.md、SPEC.md 等）
+- 提取项目信息（类型、语言、框架）
+- 两种模式：
+  - **自动模式**：基于需求文件推断并生成
+  - **互动模式**：引导用户逐步填写
+- 选择合适的 Profile 和 Extension
+- 生成完整的 CLAUDE.md 文件
+- 验证生成的配置
+
+**相关文档**：[新项目快速指南](.claude/NEW_PROJECT_GUIDE.md)
+
+---
+
+### generate-claude-context
+
+**用途**：分析现有项目并生成项目的 CLAUDE.md 文件
+
+**使用场景**：
+- 已有代码项目需要接入框架
+- 自动分析项目技术栈、结构、依赖
+- 基于模板生成规范的 CLAUDE.md
+
+**调用方式**：
+```bash
+# 在 Claude Code 中调用
+/generate-claude-context
+```
+
+**执行内容**：
+- 检测项目类型和技术栈
+- 分析项目结构和依赖
+- 识别代码规范和测试配置
+- 基于模板生成 CLAUDE.md
+- 验证生成的文件
+
+**相关文档**：[现有项目接入指南](.claude/EXISTING_PROJECT_GUIDE.md)
+
+---
+
 ## 目录
 
 - [0) 平台与运行时快速识别](#0-平台与运行时快速识别)

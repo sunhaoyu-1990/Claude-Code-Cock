@@ -17,6 +17,57 @@
 - 📚 错误知识库管理
 - ✅ 自动化检查脚本
 
+**两种接入方式**：
+1. **新项目**：从零开始配置（推荐）
+2. **现有项目**：使用自动化命令分析并生成配置
+
+---
+
+## 接入方式选择
+
+### 方式一：新项目（推荐）
+
+**适用场景**：
+- 全新项目
+- 愿意手动配置所有内容
+
+**步骤**：按照下面的步骤 1-5 进行
+
+### 方式二：现有项目
+
+**适用场景**：
+- 已有代码的项目
+- 需要快速接入框架
+
+**步骤**：
+
+```bash
+# 1. 在项目根目录创建 .claude 目录
+mkdir -p .claude
+
+# 2. 复制框架核心文件
+# 假设框架在 /path/to/guide_cc/.claude/
+cp -r /path/to/guide_cc/.claude/* .claude/
+
+# 3. 使用自动化命令分析项目并生成 CLAUDE.md
+# 在 Claude Code 中调用：
+/generate-claude-context
+
+# 4. 验证生成的配置
+python .claude/scripts/validate_template.py
+```
+
+**命令会自动分析**：
+- 项目类型和技术栈
+- 项目结构和依赖
+- 代码规范和测试配置
+- CI/CD 配置
+
+**然后**：
+- 检查生成的 `CLAUDE.md`
+- 根据实际情况调整内容
+- 完成步骤 3 验证安装
+
 ---
 
 ## 步骤 1：复制框架到项目（5 分钟）
@@ -65,13 +116,43 @@ cp .claude/templates/CLAUDE-tem.md CLAUDE.md
 
 ### 2.3 配置 Profile 引用
 
-根据项目语言，取消对应的 Profile 注释：
+Profile 提供语言/框架特定的工程规范和最佳实践。
+
+#### 必选 Profile
 
 ```markdown
-@.claude/PROFILES/python.md    # Python 项目
-@.claude/PROFILES/cpp.md       # C++ 项目
-@.claude/PROFILES/frontend.md  # 前端项目
+@.claude/PROFILES/common.md    # 通用工程规范（必须）
 ```
+
+#### 语言/框架 Profile（选择一个）
+
+| 项目类型 | Profile 引用 | 说明 |
+|---------|-------------|------|
+| Python 后端 | `@.claude/PROFILES/python.md` | PEP 8、类型提示、pytest |
+| C++ 后端 | `@.claude/PROFILES/cpp.md` | 现代 C++、RAII、const 正确性 |
+| React/Vue/Angular | `@.claude/PROFILES/frontend.md` | TypeScript、ESLint、组件规范 |
+| Node.js 服务 | `@.claude/PROFILES/python.md` 或 `frontend.md` | 根据项目类型选择 |
+
+#### 测试 Profile（推荐）
+
+| 测试框架 | Profile 引用 |
+|---------|-------------|
+| pytest（Python） | `@.claude/PROFILES/testing-python.md` |
+| gtest/catch2（C++） | `@.claude/PROFILES/testing-cpp.md` |
+| Jest/Vitest（JS） | `@.claude/PROFILES/testing-common.md` |
+
+#### Extension（按需启用）
+
+如果项目需要额外的约束，可以启用 Extension：
+
+```markdown
+@.claude/EXTENSIONS/architecture-heavy.md    # 架构强约束项目
+@.claude/EXTENSIONS/ai-workflow-advanced.md  # 重型 AI 协作流
+@.claude/EXTENSIONS/safety-critical.md       # 高风险系统
+@.claude/EXTENSIONS/data-pipeline.md         # 数据工程专用
+```
+
+📖 **详细指南**：[EXTENSIONS_GUIDE.md](EXTENSIONS_GUIDE.md)
 
 ### 2.4 验证配置
 
@@ -109,7 +190,23 @@ python .claude/scripts/check_workflow.py
 
 ## 步骤 4：开始使用（核心流程）
 
-### 4.1 理解双模式开发
+### 4.1 创建功能分支
+
+```bash
+# 使用 PowerShell 脚本（推荐）
+.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
+
+# 或手动创建
+git checkout main
+git pull
+git checkout -b feature/001-add-user-authentication
+```
+
+📖 **详细分支管理指南**：[BRANCH_GUIDE.md](BRANCH_GUIDE.md)
+
+---
+
+### 4.2 理解双模式开发
 
 Claude Code 会根据任务复杂度自动选择开发模式：
 
@@ -140,7 +237,9 @@ Claude Code 会根据任务复杂度自动选择开发模式：
 → /speckit.checklist → /speckit.tasks → /speckit.analyze → /speckit.implement
 ```
 
-### 5.2 常用命令
+---
+
+### 4.3 常用命令
 
 ```bash
 # 查看命令速查
@@ -155,7 +254,7 @@ python .claude/scripts/workflow_state.py init <feature_dir> <feature_name>
 
 ---
 
-## 步骤 6：错误处理流程（按需）
+## 步骤 5：错误处理流程（按需）
 
 当开发过程中遇到错误时：
 

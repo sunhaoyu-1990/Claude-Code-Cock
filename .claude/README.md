@@ -10,7 +10,12 @@
 .claude/
 ├─ BASE_CLAUDE.md                  # 组织级基础规范（不可修改）
 ├─ constitution.md                 # 核心宪法（最高优先级）
+├─ FRAMEWORK_TODO.md               # 框架待完善事项记录
 ├─ COMMANDS.md                     # 常用命令速查
+├─ QUICKSTART.md                   # 快速开始指南（包含故障排除）
+├─ EXISTING_PROJECT_GUIDE.md       # 现有项目接入指南
+├─ BRANCH_GUIDE.md                 # 分支管理指南
+├─ EXTENSIONS_GUIDE.md             # Extension 启用指南
 │
 ├─ PROFILES/                       # Layer 2: 语言/框架工程直觉
 │  ├─ common.md                    # 通用工程规范
@@ -30,7 +35,8 @@
 ├─ GUIDES/                         # 开发指南
 │  ├─ DEV_GUIDE_SIMPLE.md          # 简单开发模式指南
 │  ├─ DEVELOPMENT_GUIDE_COMPLEX.md # 复杂开发模式指南
-│  └─ TEST_GUIDE.md                # 测试规范指南
+│  ├─ TEST_GUIDE.md                # 测试规范指南
+│  └─ CODE_REVIEW_GUIDE.md         # 代码审查流程指南
 │
 ├─ SKILLS/                         # Speckit 技能链条
 │  ├─ speckit-specify/             # 需求规格化
@@ -50,12 +56,19 @@
 │  ├─ speckit.analyze.md
 │  ├─ speckit.implement.md
 │  ├─ speckit.constitution.md
-│  └─ merge-current-branch.md
+│  ├─ merge-current-branch.md
+│  ├─ generate-claude-context.md   # 分析现有项目并生成 CLAUDE.md
+│  └─ init-claude-context.md        # 初始化新项目并生成 CLAUDE.md
 │
 ├─ AGENTS/                         # 专用代理
+│  ├─ c-code-reviewer.md           # C 代码审查代理
 │  ├─ python-code-security-reviewer.md
 │  ├─ python-test-reviewer.md
 │  └─ performance-optimizer.md
+│
+├─ knowledge/                      # 错误知识库
+│  ├─ README.md                    # 知识库使用说明
+│  └─ ERROR_WORKFLOW.md            # 错误处理工作流
 │
 ├─ SCRIPTS/                        # PowerShell 辅助脚本
 │  └─ powershell/
@@ -67,8 +80,14 @@
 │  ├─ settings.json                # 权限与沙箱配置
 │  └─ settings.local.json          # 本地覆盖配置
 │
-└─ templates/                      # 文档模板
-   └─ CLAUDE-tem.md                # 项目级 CLAUDE.md 模板（包含规范与上下文）
+├─ templates/                      # 文档模板
+│  ├─ CLAUDE-tem.md                # 项目级 CLAUDE.md 模板
+│  ├─ error_case_template.md       # 错误案例模板
+│  ├─ error_pattern_template.md    # 错误模式模板
+│  └─ TEMPLATE_CHECKLIST.md        # 模板检查清单
+│
+└─ archive/                        # 归档文件
+   └─ TROUBLESHOOTING.md           # 故障排除指南（已整合到 QUICKSTART.md）
 ```
 
 ---
@@ -267,6 +286,19 @@ speckit-implement → 实施与验证
 ---
 
 ## 核心宪法原则
+
+### 主语言限定（v2.2 新增）
+
+**默认语言**：中文（简体）
+
+**适用范围**：
+- ✅ 代码注释、文档、提交信息、错误提示
+- ⚠️ 技术讨论、需求描述、设计文档
+- 🔄 代码本身（变量名/函数名/API 契约）遵循语言规范
+
+**覆盖规则**：
+- 项目级覆盖：在 CLAUDE.md 第 2️⃣ 节明确声明
+- 会话级覆盖：用户明确指定
 
 ### 不可违反条款
 
@@ -474,15 +506,37 @@ cp .claude/templates/CLAUDE-tem.md <your-project>/CLAUDE.md
 
 ## 版本信息
 
-- **框架版本：** v1.0
-- **最后更新：** 2026-01-09
+- **框架版本：** v1.1
+- **宪法版本：** v2.2
+- **最后更新：** 2026-01-14
 - **维护者：** shy
+- **最新变更：** 新增主语言限定（默认中文）
 
 ---
 
 ## 参考资料
 
+### 核心文档
+- [快速开始指南](QUICKSTART.md) - 新项目配置流程
+- [现有项目接入指南](EXISTING_PROJECT_GUIDE.md) - 已有项目接入流程
+- [核心宪法](constitution.md) - 最高优先级规范
+- [BASE 规范](BASE_CLAUDE.md) - 组织级基础规范
+- [命令速查](COMMANDS.md) - 多生态命令参考 + 自定义命令
+
+### 开发流程
+- [分支管理指南](BRANCH_GUIDE.md) - Git 工作流与分支规范
+- [简单开发模式](GUIDES/DEV_GUIDE_SIMPLE.md) - 小功能/Bug 修复
+- [复杂开发模式](GUIDES/DEVELOPMENT_GUIDE_COMPLEX.md) - Speckit Skill Chain
+- [代码审查流程](GUIDES/CODE_REVIEW_GUIDE.md) - 人工代码审查规范
+
+### 配置指南
+- [Extension 启用指南](EXTENSIONS_GUIDE.md) - 何时启用哪些 Extension
+- [框架待完善事项](FRAMEWORK_TODO.md) - P1/P2/P3 优化计划
+
+### 知识库
+- [错误处理工作流](knowledge/ERROR_WORKFLOW.md) - 错误记录与模式提炼
+- [知识库使用说明](knowledge/README.md) - 知识库管理规范
+
+### 外部资源
 - Claude Code 官方文档：https://docs.anthropic.com/claude-code
 - Speckit 方法论：本项目 `.claude/SKILLS/` 目录
-- 测试规范：`.claude/GUIDES/TEST_GUIDE.md`
-- 复杂开发流程：`.claude/GUIDES/DEVELOPMENT_GUIDE_COMPLEX.md`

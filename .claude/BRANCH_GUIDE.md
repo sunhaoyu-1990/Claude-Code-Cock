@@ -104,6 +104,21 @@ feature/008-migrate-to-new-api
 
 ### 步骤 1：开始新功能
 
+**方式一：使用自动化脚本（推荐）**
+
+```powershell
+# PowerShell 脚本会自动：
+# - 获取下一个分支编号
+# - 创建语义化分支名
+# - 创建 Git 分支
+# - 创建 Feature 目录
+# - 复制 spec.md 模板
+
+.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
+```
+
+**方式二：手动创建**
+
 ```bash
 # 1. 确保在 main 分支且是最新的
 git checkout main
@@ -112,7 +127,10 @@ git pull origin main
 # 2. 创建新的功能分支
 git checkout -b feature/001-add-user-authentication
 
-# 3. 初始化 Speckit 工作流（可选）
+# 3. 创建 Feature 目录
+mkdir -p specs/001-add-user-authentication
+
+# 4. 初始化 Speckit 工作流（可选）
 python .claude/scripts/workflow_state.py init specs/001-add-user-authentication "Add User Authentication"
 ```
 
@@ -460,40 +478,29 @@ git commit -m "feat: add feature"
 
 ### 创建功能分支脚本
 
-```bash
-#!/bin/bash
-# create-feature-branch.sh
+框架提供了 PowerShell 脚本来自动创建功能分支：
 
-# 获取下一个编号
-NEXT_ID=$(git branch -a | grep -E "feature/[0-9]+" | sed 's/.*feature\/\([0-9]*\).*/\1/' | sort -n | tail -1)
-NEXT_ID=$(printf "%03d" $((10#$NEXT_ID + 1)))
+```powershell
+# 使用 PowerShell 脚本（推荐）
+.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
 
-# 获取功能名称
-FEATURE_NAME=$1
+# 指定短名称
+.claude/scripts/powershell/create-new-feature.ps1 "Implement OAuth2" -ShortName "oauth2"
 
-if [ -z "$FEATURE_NAME" ]; then
-    echo "用法: ./create-feature-branch.sh <feature-name>"
-    exit 1
-fi
+# 指定分支编号
+.claude/scripts/powershell/create-new-feature.ps1 "Add feature" -Number 5
 
-BRANCH_NAME="feature/${NEXT_ID}-${FEATURE_NAME}"
-FEATURE_DIR="specs/${NEXT_ID}-${FEATURE_NAME}"
-
-# 创建分支
-git checkout main
-git pull
-git checkout -b $BRANCH_NAME
-
-# 创建 Feature 目录
-mkdir -p $FEATURE_DIR
-
-# 初始化工作流状态
-python .claude/scripts/workflow_state.py init $FEATURE_DIR "${FEATURE_NAME}"
-
-echo "✅ 分支创建成功: $BRANCH_NAME"
-echo "✅ Feature 目录创建成功: $FEATURE_DIR"
-echo "➡️  下一步: 在 Claude Code 中调用 /skill speckit-specify ${FEATURE_NAME}"
+# 输出 JSON 格式（用于脚本集成）
+.claude/scripts/powershell/create-new-feature.ps1 "Add feature" -Json
 ```
+
+**脚本功能**：
+- 自动获取下一个分支编号
+- 根据描述生成语义化分支名
+- 创建 Git 分支
+- 创建对应的 Feature 目录
+- 复制 spec.md 模板
+- 设置环境变量 `SPECIFY_FEATURE`
 
 ---
 

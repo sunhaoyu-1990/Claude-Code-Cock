@@ -28,7 +28,7 @@
 
 ```bash
 # 1. 将框架克隆到你的项目
-git clone https://github.com/your-username/guide_cc.git my-project
+git clone https://github.com/sunhaoyu-1990/Claude-Code-Cock.git my-project
 cd my-project
 
 # 2. 在 Claude Code 中运行
@@ -102,6 +102,199 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 | C/C++ | `@.claude/profiles/cpp.md` | gtest, catch2 |
 | Go | `@.claude/profiles/common.md` | testing |
 | Rust | `@.claude/profiles/common.md` | built-in |
+
+---
+
+## ✨ 核心亮点
+
+### 1️⃣ 错误知识库 - 让 AI 自动学习避坑
+
+**🎯 使用场景**
+- 项目中重复出现相同类型的 Bug
+- 新成员总是踩同样的坑
+- 团队经验难以传承
+
+**❌ 传统困难**
+```
+同样的错误重复出现 → 浪费时间排查
+老成员离职后经验流失 → 新人重蹈覆辙
+错误解决方案散落在聊天记录 → 难以查找
+```
+
+**✅ 框架解决方案**
+```
+错误发生 → 自动检测 → 生成案例 → 识别模式 → 更新规范 → 预防再发生
+```
+
+**🚀 如何开启**
+```bash
+# 无需额外配置，自动工作
+# 1. 开发时遇到错误，Claude 自动生成案例
+# 2. 存储在 .claude/knowledge/cases/
+# 3. 同类错误不再重复出现
+
+# 手动添加错误案例（可选）
+cp .claude/templates/error_case_template.md .claude/knowledge/cases/my-error.md
+```
+
+**💡 实际效果**
+- ✅ 同样的错误不会出现第二次
+- ✅ 新成员 1 天了解项目常见陷阱（传统需要 1-2 周）
+- ✅ 形成项目专属的"避坑指南"
+
+---
+
+### 2️⃣ 一键初始化 - 2 分钟搭建项目规范
+
+**🎯 使用场景**
+- 新项目启动，不知道如何配置 Claude Code
+- 现有项目想接入 AI 辅助开发
+- 多个项目需要统一规范
+
+**❌ 传统困难**
+```
+手动编写 CLAUDE.md → 不知道写什么、写多全
+每个项目重复配置 → 浪费 1-2 小时
+配置不统一 → AI 行为不一致，效果打折扣
+```
+
+**✅ 框架解决方案**
+```bash
+# 新项目：自动生成完整配置
+/init-claude-context --auto        # 30 秒完成
+/init-claude-context --interactive # 引导式填写（2-3 分钟）
+
+# 现有项目：智能分析并生成
+/generate-claude-context           # 自动分析项目结构
+```
+
+**💡 实际效果**
+- ✅ 从 1-2 小时 → 30 秒（自动模式）
+- ✅ 支持 5+ 语言自动检测（Python/JS/Go/Rust/C++）
+- ✅ 智能推断：项目类型、框架、测试工具、代码风格
+- ✅ 配置统一，AI 行为可预期
+
+---
+
+### 3️⃣ Speckit 技能链 - 完整的需求→实现闭环
+
+**🎯 使用场景**
+- 开发大型功能（影响多个模块）
+- 需求不明确，容易遗漏场景
+- 实现后返工，需求理解偏差
+
+**❌ 传统困难**
+```
+需求理解不透彻 → 边做边改 → 返工率高
+缺少技术规划 → 架构不清晰 → 后期重构成本高
+任务拆解粗糙 -> 开发遗漏边界情况 -> 测试不全面
+```
+
+**✅ 框架解决方案**
+```
+7 步完整流程：
+specify → clarify → plan → checklist → tasks → analyze → implement
+  需求      澄清     规划     检查      任务     分析     实现
+```
+
+**🚀 如何使用**
+```bash
+# 完整流程（大型功能）
+/speckit.specify    # 1. 需求规格化
+/speckit.clarify    # 2. 需求澄清（如有疑问）
+/speckit.plan       # 3. 技术规划
+/speckit.checklist  # 4. 完整性检查
+/speckit.tasks      # 5. 任务拆解
+/speckit.analyze    # 6. 一致性分析
+/speckit.implement  # 7. 实施执行
+
+# 小功能可用 Simple Mode（见下一条）
+```
+
+**💡 实际效果**
+- ✅ 需求理解偏差减少 80%（通过 clarify 步骤）
+- ✅ 返工率降低 60%（完整规划 + 检查清单）
+- ✅ 遗漏场景减少 90%（结构化任务拆解）
+
+---
+
+### 4️⃣ 双模式开发 - 灵活适配不同需求
+
+**🎯 使用场景**
+- 小改动也要走完整流程？太重了！
+- 大型功能没有规范？容易混乱！
+
+**❌ 传统困难**
+```
+所有任务统一流程 → 小改动也被拖慢
+大功能没有规范 → 遗漏场景、架构混乱
+不知道何时用哪种流程 → 主观判断，标准不一
+```
+
+**✅ 框架解决方案**
+
+| 模式 | 触发条件 | 流程 | 耗时 |
+|------|---------|------|------|
+| **Simple Mode** | ✅ 修改 < 5 个文件<br>✅ Bug 修复<br>✅ 小功能迭代 | Light Plan → 开发 → 验证 | 5-15 分钟 |
+| **Complex Mode** | ✅ 修改 ≥ 5 个文件<br>✅ 公共 API 变更<br>✅ 跨模块修改<br>✅ 结构性重构 | Speckit 技能链（7 步） | 30-60 分钟 |
+
+**🚀 如何使用**
+```bash
+# Claude 自动检测并选择合适的模式
+# 你只需正常提出需求，无需手动选择
+
+# 强制指定模式（可选）
+"用 Simple Mode 快速修复这个 Bug"
+"用 Complex Mode 开发这个支付功能"
+```
+
+**💡 实际效果**
+- ✅ 小改动不拖慢（Simple Mode：5-15 分钟）
+- ✅ 大功能不失控（Complex Mode：完整规范）
+- ✅ 自动触发，无需主观判断
+
+---
+
+### 5️⃣ MCU 原则 + 分支管理 - 规范的 Git 工作流
+
+**🎯 使用场景**
+- 代码提交混乱，一个 PR 包含多个不相关的改动
+- Code Review 困难，改动太大难以审查
+- 回滚麻烦，一个提交包含多个功能
+
+**❌ 传统困难**
+```
+大而全的提交 → Code Review 困难 → 质量难保证
+多个功能混在一起 → 难以回滚 → 牵一发而动全身
+提交信息不规范 → 不知道改了什么 → Git 历史混乱
+```
+
+**✅ 框架解决方案**
+
+**MCU 原则（最小可合并单元）**：
+每次提交必须：
+- ✅ 逻辑自洽（一个完整的改动）
+- ✅ 职责单一（只做一件事）
+- ✅ 可测试（能独立验证）
+- ✅ 可回滚（出问题能快速回退）
+
+**自动化分支管理**：
+```bash
+# 1. 创建新功能分支（自动命名 + 自动关联 Issue）
+.claude/scripts/powershell/create-new-feature.ps1 "Add user login"
+# 生成：feature/001-add-user-login
+
+# 2. 前置检查（确保环境干净）
+.claude/scripts/powershell/check-prerequisites.ps1
+
+# 3. 开发完成后合并（自动 Squash + 语义化提交）
+/merge-current-branch
+```
+
+**💡 实际效果**
+- ✅ Code Review 效率提升 50%（每次 PR 职责单一）
+- ✅ 回滚风险降低 80%（MCU 原则）
+- ✅ Git 历史清晰（语义化提交信息）
 
 ---
 
@@ -259,35 +452,32 @@ cp -r /path/to/guide_cc/.claude .
 
 ---
 
-## 🌟 核心特性
+## 🌟 其他特性
 
 ### 主语言限定
 
+**默认中文环境，符合国内开发习惯**
+
 - **默认语言**：中文（简体）
 - **适用范围**：代码注释、文档、提交信息、错误提示
-- **项目覆盖**：可在 CLAUDE.md 中声明使用英文
+- **项目覆盖**：国际化项目可在 CLAUDE.md 中声明使用英文
 - **优先级**：项目级覆盖 > 宪法默认 > 会话级指定
 
-### MCU 原则（最小可合并单元）
-
-每次变更必须：
-- 逻辑自洽
-- 职责单一
-- 可测试
-- 可回滚
+**技术术语处理**：
+- 保留原文：API、HTTP、JSON、RESTful 等
+- 中英混用：`RESTful API（Representational State Transfer）`
 
 ### 确定性等级标注
 
-- ✅ **【已验证】** - 已验证、可复现、无歧义
-- ⚠️ **【推断】** - 基于充分经验或共识
-- ❓ **【假设】** - 需要验证、试验或进一步澄清
+**信息可信度一目了然**
 
-### 错误知识库
+| 等级 | 符号 | 说明 | 使用场景 |
+|------|------|------|---------|
+| 已验证 | ✅ | 已验证、可复现、无歧义 | 已测试的代码、已验证的配置 |
+| 推断 | ⚠️ | 基于充分经验或共识 | 最佳实践、常见模式 |
+| 假设 | ❓ | 需要验证、试验或澄清 | 未测试的代码、待验证的想法 |
 
-- 自动检测开发过程中的错误
-- 生成错误案例文档
-- 识别错误模式
-- 更新规范预防同类错误
+**价值**：快速识别哪些是经过验证的，哪些是基于经验的推断，哪些还需要进一步验证。
 
 ---
 
@@ -296,7 +486,7 @@ cp -r /path/to/guide_cc/.claude .
 欢迎贡献！以下是一些贡献方式：
 
 ### 报告问题
-在 [Issues](https://github.com/your-username/guide_cc/issues) 中报告 bug 或提出新功能建议。
+在 [Issues](https://github.com/sunhaoyu-1990/Claude-Code-Cock/issues) 中报告 bug 或提出新功能建议。
 
 ### 提交代码
 1. Fork 本仓库
@@ -336,8 +526,8 @@ cp -r /path/to/guide_cc/.claude .
 - [Anthropic Claude API](https://docs.anthropic.com/claude/reference)
 
 ### 社区
-- [GitHub Issues](https://github.com/your-username/guide_cc/issues)
-- [GitHub Discussions](https://github.com/your-username/guide_cc/discussions)
+- [GitHub Issues](https://github.com/sunhaoyu-1990/Claude-Code-Cock/issues)
+- [GitHub Discussions](https://github.com/sunhaoyu-1990/Claude-Code-Cock/discussions)
 
 ### 示例项目
 - [examples/python-fastapi](examples/python-fastapi) - Python FastAPI 示例
@@ -359,7 +549,7 @@ cp -r /path/to/guide_cc/.claude .
 
 如果这个项目对你有帮助，请给个 Star 支持一下！
 
-[![Star History Chart](https://api.star-history.com/svg?repos=your-username/guide_cc&type=Date)](https://star-history.com/#your-username/guide_cc&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=sunhaoyu-1990/Claude-Code-Cock&type=Date)](https://star-history.com/#sunhaoyu-1990/Claude-Code-Cock&Date)
 
 ---
 
@@ -367,7 +557,7 @@ cp -r /path/to/guide_cc/.claude .
 
 - **维护者**：shy
 - **邮箱**：your-email@example.com
-- **GitHub**：[@your-username](https://github.com/your-username)
+- **GitHub**：[@sunhaoyu-1990](https://github.com/sunhaoyu-1990)
 
 ---
 

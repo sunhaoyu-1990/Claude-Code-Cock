@@ -3,6 +3,7 @@
 .claude/archive/
 .claude/knowledge/cases/local/
 .claude/knowledge/patterns/local/
+docs
 
 # 操作系统
 .DS_Store

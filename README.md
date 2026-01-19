@@ -1,6 +1,8 @@
-# Claude Code 驾驶舱框架
+# Claude Code 规范框架
 
-> 为你的项目快速搭建 Claude Code AI 辅助开发规范与工作流
+> 通过配置规范体系，让 Claude Code 按照团队既定方式进行 AI 辅助开发
+
+本项目是一套**纯文档规范框架**，通过分层配置定义 Claude Code 的工作行为，无需任何自动化程序，完全依赖 Claude Code 对规范的理解和执行。
 
 [![Framework Version](https://img.shields.io/badge/framework-v1.1-blue)](.claude/)
 [![Constitution](https://img.shields.io/badge/constitution-v2.2-green)](.claude/constitution.md)
@@ -137,10 +139,10 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 cp .claude/templates/error_case_template.md .claude/knowledge/cases/my-error.md
 ```
 
-**💡 实际效果**
-- ✅ 同样的错误不会出现第二次
-- ✅ 新成员 1 天了解项目常见陷阱（传统需要 1-2 周）
-- ✅ 形成项目专属的"避坑指南"
+**💡 工作原理**
+- Claude 遇到错误时按照规范记录案例
+- 形成可复用的错误经验库
+- 后续遇到类似错误时可参考历史处理方案
 
 ---
 
@@ -168,11 +170,10 @@ cp .claude/templates/error_case_template.md .claude/knowledge/cases/my-error.md
 /generate-claude-context           # 自动分析项目结构
 ```
 
-**💡 实际效果**
-- ✅ 从 1-2 小时 → 30 秒（自动模式）
-- ✅ 支持 5+ 语言自动检测（Python/JS/Go/Rust/C++）
-- ✅ 智能推断：项目类型、框架、测试工具、代码风格
-- ✅ 配置统一，AI 行为可预期
+**💡 工作原理**
+- Claude Code 读取需求文件，智能推断项目配置
+- 自动填充模板，大幅减少手动配置时间
+- 支持 Python/JS/Go/Rust/C++ 等多种语言检测
 
 ---
 
@@ -211,10 +212,10 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 # 小功能可用 Simple Mode（见下一条）
 ```
 
-**💡 实际效果**
-- ✅ 需求理解偏差减少 80%（通过 clarify 步骤）
-- ✅ 返工率降低 60%（完整规划 + 检查清单）
-- ✅ 遗漏场景减少 90%（结构化任务拆解）
+**💡 工作原理**
+- 每个技能是 Claude Code 的规范定义
+- 通过结构化流程帮助减少需求理解偏差
+- 完整规划和检查清单有助于降低返工风险
 
 ---
 
@@ -248,10 +249,10 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 "用 Complex Mode 开发这个支付功能"
 ```
 
-**💡 实际效果**
-- ✅ 小改动不拖慢（Simple Mode：5-15 分钟）
-- ✅ 大功能不失控（Complex Mode：完整规范）
-- ✅ 自动触发，无需主观判断
+**💡 工作原理**
+- 小改动使用 Simple Mode 快速完成
+- 大功能使用 Complex Mode 确保规范
+- Claude 根据改动规模自动选择合适模式
 
 ---
 
@@ -278,23 +279,19 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 - ✅ 可测试（能独立验证）
 - ✅ 可回滚（出问题能快速回退）
 
-**自动化分支管理**：
+**分支管理**：
 ```bash
-# 1. 创建新功能分支（自动命名 + 自动关联 Issue）
-.claude/scripts/powershell/create-new-feature.ps1 "Add user login"
-# 生成：feature/001-add-user-login
+# 创建功能分支
+git checkout -b feature/your-feature-name
 
-# 2. 前置检查（确保环境干净）
-.claude/scripts/powershell/check-prerequisites.ps1
-
-# 3. 开发完成后合并（自动 Squash + 语义化提交）
+# 开发完成后合并
 /merge-current-branch
 ```
 
-**💡 实际效果**
-- ✅ Code Review 效率提升 50%（每次 PR 职责单一）
-- ✅ 回滚风险降低 80%（MCU 原则）
-- ✅ Git 历史清晰（语义化提交信息）
+**💡 工作原理**
+- 每次提交职责单一，便于 Code Review
+- MCU 原则确保可快速回滚
+- 语义化提交信息使 Git 历史清晰可追溯
 
 ---
 
@@ -369,10 +366,43 @@ specify → clarify → plan → checklist → tasks → analyze → implement
 ├── knowledge/                   # 错误知识库
 │   ├── patterns/                # 错误模式
 │   └── cases/                   # 错误案例
-│
-└── scripts/                     # 辅助脚本
-    └── powershell/              # PowerShell 脚本
 ```
+
+---
+
+## ⚠️ 重要说明
+
+### 项目定位
+
+本项目是 **Claude Code 的配置规范框架**，通过文档定义引导 Claude Code 的工作行为。
+
+**工作原理**：
+```
+你定义规范 → Claude Code 读取配置 → Claude 按规范执行
+```
+
+### 核心组件说明
+
+| 组件 | 类型 | 说明 |
+|------|------|------|
+| **Commands** | Claude Code 命令 | `/init-claude-context`、`/generate-claude-context` 等 |
+| **Skills** | Claude Code 技能 | Speckit 技能链（7个技能）等 |
+| **Profiles** | 语言/框架规范 | Python、C++、Frontend 等 |
+| **Extensions** | 可选重型约束 | 架构、安全、数据工程等 |
+| **Knowledge** | 错误知识库 | 错误案例和模式管理 |
+
+### 效果说明
+
+**效果取决于**：
+- Claude Code 对规范的理解程度
+- 规范定义的清晰程度
+- 具体任务的复杂度
+
+**不同于传统工具**：
+- ❌ 不是自动化脚本或程序
+- ❌ 不是独立运行的服务
+- ✅ 通过规范文档引导 AI 行为
+- ✅ 灵活可扩展，通过定义规范调整行为
 
 ---
 

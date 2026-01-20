@@ -53,8 +53,8 @@ cp -r /path/to/guide_cc/.claude/* .claude/
 # 在 Claude Code 中调用：
 /generate-claude-context
 
-# 4. 验证生成的配置
-python .claude/scripts/validate_template.py
+# 4. 检查生成的配置
+# 打开 CLAUDE.md 检查内容是否符合项目实际情况
 ```
 
 **命令会自动分析**：
@@ -156,47 +156,19 @@ Profile 提供语言/框架特定的工程规范和最佳实践。
 
 ### 2.4 验证配置
 
-```bash
-python .claude/scripts/validate_template.py
-```
-
-预期输出：
-```
-✅ CLAUDE.md 模板验证通过
-```
+检查生成的 CLAUDE.md 文件，确认：
+- 项目信息正确
+- Profile 引用正确
+- 无遗漏的必填项
 
 ---
 
-## 步骤 3：验证安装（2 分钟）
+## 步骤 3：开始使用（核心流程）
 
-### 3.1 运行所有检查
-
-```bash
-# 检查模板文件和引用
-python .claude/scripts/check_templates.py
-
-# 检查规范合规性
-python .claude/scripts/check_compliance.py
-
-# 检查工作流状态
-python .claude/scripts/check_workflow.py
-```
-
-### 3.2 预期结果
-
-所有脚本应返回 `0` 退出码，显示 ✅ 通过信息。
-
----
-
-## 步骤 4：开始使用（核心流程）
-
-### 4.1 创建功能分支
+### 3.1 创建功能分支
 
 ```bash
-# 使用 PowerShell 脚本（推荐）
-.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
-
-# 或手动创建
+# 手动创建功能分支
 git checkout main
 git pull
 git checkout -b feature/001-add-user-authentication
@@ -244,21 +216,15 @@ Claude Code 会根据任务复杂度自动选择开发模式：
 ```bash
 # 查看命令速查
 cat .claude/COMMANDS.md
-
-# 查看工作流状态
-python .claude/scripts/workflow_state.py
-
-# 初始化功能工作流
-python .claude/scripts/workflow_state.py init <feature_dir> <feature_name>
 ```
 
 ---
 
-## 步骤 5：错误处理流程（按需）
+## 步骤 4：错误处理流程（按需）
 
 当开发过程中遇到错误时：
 
-### 6.1 错误触发检测
+### 4.1 错误触发检测
 
 Claude 会自动检查是否需要记录错误：
 
@@ -399,9 +365,6 @@ tail -n 50 .claude/constitution.md | grep "规范执行强制要求"
 
 **解决方案**：
 ```bash
-# 检查工作流状态
-python .claude/scripts/check_workflow.py
-
 # 检查 Feature 目录和必需文件
 ls specs/<feature_dir>/
 ls specs/<feature_dir>/spec.md
@@ -425,9 +388,6 @@ ls specs/templates/
 
 # 正确引用格式：specs/templates/plan-template.md（使用 /）
 # 错误格式：@specs\templates\plan-template.md
-
-# 运行模板检查
-python .claude/scripts/check_templates.py
 ```
 
 **错误代码**：E002
@@ -449,9 +409,6 @@ python .claude/scripts/check_templates.py
 
 **解决方案**：
 ```bash
-# 运行验证脚本
-python .claude/scripts/validate_template.py
-
 # 编辑 CLAUDE.md，替换所有占位符
 # {项目名称} → My Awesome Project
 # {主要语言} → Python
@@ -464,26 +421,7 @@ python .claude/scripts/validate_template.py
 
 ---
 
-#### 问题 6：Python 脚本无法运行
-
-**症状**：`错误：找不到模块 'pathlib'` 或 `语法错误：f-string`
-
-**原因**：Python 版本过低（需要 Python 3.10+）
-
-**解决方案**：
-```bash
-# 检查 Python 版本
-python --version
-
-# 使用 uv 管理 Python 环境
-uv run python .claude/scripts/check_compliance.py
-```
-
-**错误代码**：E006
-
----
-
-#### 问题 7：Profile 不生效
+#### 问题 6：Profile 不生效
 
 **症状**：Claude 没有遵循语言特定的规范（如类型检查被忽略）
 
@@ -505,18 +443,6 @@ ls .claude/PROFILES/
 
 ---
 
-### 完整诊断脚本
-
-当遇到问题时，首先运行完整诊断：
-
-```bash
-# 运行所有检查脚本
-python .claude/scripts/check_compliance.py && \
-python .claude/scripts/check_templates.py && \
-python .claude/scripts/check_workflow.py && \
-python .claude/scripts/validate_template.py
-```
-
 ### 手动检查清单
 
 - [ ] `.claude/constitution.md` 存在
@@ -531,12 +457,11 @@ python .claude/scripts/validate_template.py
 
 | 错误代码 | 错误信息 | 解决方案 |
 |----------|----------|----------|
-| E001 | 找不到 constitution.md | 检查路径引用，运行 check_compliance.py |
-| E002 | 模板文件不存在 | 运行 check_templates.py |
-| E003 | 必填项未填写 | 运行 validate_template.py |
-| E004 | 上游产物不存在 | 检查工作流状态，按顺序执行 Skills |
+| E001 | 找不到 constitution.md | 检查路径引用，确认文件存在 |
+| E002 | 模板文件不存在 | 检查模板目录和文件路径 |
+| E003 | 必填项未填写 | 编辑 CLAUDE.md，填写所有必填项 |
+| E004 | 上游产物不存在 | 按顺序执行 Speckit Skills |
 | E005 | Profile 未引用 | 在 CLAUDE.md 中添加 Profile 引用 |
-| E006 | Python 版本过低 | 升级到 Python 3.10+ |
 
 ---
 
@@ -559,7 +484,6 @@ python .claude/scripts/validate_template.py
 
 - 自定义 Language Profile
 - 扩展错误知识库
-- 配置自动化脚本
 
 ---
 
@@ -570,9 +494,6 @@ python .claude/scripts/validate_template.py
 - [ ] `.claude/` 目录已复制到项目
 - [ ] `CLAUDE.md` 已创建并填写必填项
 - [ ] 正确的 Profile 已引用
-- [ ] `validate_template.py` 验证通过
-- [ ] `check_templates.py` 验证通过
-- [ ] `check_compliance.py` 验证通过
 - [ ] 理解 Simple/Complex 双模式
 - [ ] 知道如何使用 Speckit 技能链
 - [ ] 了解错误处理流程

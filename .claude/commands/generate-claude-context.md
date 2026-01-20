@@ -267,12 +267,7 @@ allowed-tools: Bash, Read, Glob, Grep, Write
 
 1. 将生成的内容写入 `CLAUDE.md` 文件
 
-2. 验证生成的文件：
-   ```bash
-   python .claude/scripts/validate_template.py
-   ```
-
-3. 如果验证失败，修复错误并重新验证
+2. 检查生成的配置是否符合项目实际情况
 
 ---
 
@@ -302,11 +297,7 @@ allowed-tools: Bash, Read, Glob, Grep, Write
 
 1. 检查生成的 CLAUDE.md 文件
 2. 根据项目实际情况调整内容
-3. 运行验证脚本：
-   ```bash
-   python .claude/scripts/validate_template.py
-   ```
-4. 如需启用 Extension，参考：
+3. 如需启用 Extension，参考：
    - [Extension 启用指南](.claude/EXTENSIONS_GUIDE.md)
 
 ### 自动化检测总结

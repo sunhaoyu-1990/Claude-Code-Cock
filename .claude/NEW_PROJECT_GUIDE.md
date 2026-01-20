@@ -518,11 +518,7 @@ examples/             # 示例代码
 
 1. 检查生成的 CLAUDE.md
 2. 根据项目实际情况调整占位符内容
-3. 运行验证：
-   ```bash
-   python .claude/scripts/validate_template.py
-   ```
-4. 开始开发：
+3. 开始开发：
    ```bash
    # 创建功能分支
    /branch feature/001-user-registration
@@ -649,7 +645,7 @@ examples/             # 示例代码
 
 ### 下一步
 1. 检查 CLAUDE.md
-2. 运行验证：python .claude/scripts/validate_template.py
+2. 根据项目实际情况调整配置
 3. 开始开发
 ```
 
@@ -761,8 +757,8 @@ examples/             # 示例代码
 5. 运行初始化命令
    /init-claude-context
 
-6. 验证配置
-   python .claude/scripts/validate_template.py
+6. 检查配置
+   手动检查 CLAUDE.md 内容是否正确
 
 7. 开始开发
    /branch feature/001-initial-feature

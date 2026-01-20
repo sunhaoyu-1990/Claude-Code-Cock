@@ -238,21 +238,14 @@ find . -maxdepth 1 -name ".*rc*" -o -name "*.config.*"
 
 ### 步骤 5：验证和调整
 
-**自动验证**：
-```bash
-python .claude/scripts/validate_template.py
-```
+**手动检查**：
+- 确认所有必填项已填写
+- 检查 Profile 引用格式正确
+- 验证项目信息准确
 
-**如果验证通过**：
-```
-✅ CLAUDE.md 模板验证通过
-```
+---
 
-**如果验证失败**：
-```
-❌ CLAUDE.md 存在未填写的必填项:
-  - 未填写: {项目名称}
-```
+## 后续步骤
 
 **手动调整**：
 1. 检查生成的 CLAUDE.md
@@ -375,18 +368,11 @@ python .claude/scripts/validate_template.py
 
 ### Q3：如何确认生成的配置正确？
 
-**A**：运行验证脚本：
+**A**：检查配置：
 
-```bash
-# 验证模板填写
-python .claude/scripts/validate_template.py
-
-# 检查模板文件
-python .claude/scripts/check_templates.py
-
-# 检查规范合规性
-python .claude/scripts/check_compliance.py
-```
+- 检查 CLAUDE.md 中的必填项是否完整
+- 确认 Profile 引用正确
+- 验证项目信息准确无误
 
 ### Q4：Monorepo 项目如何处理？
 

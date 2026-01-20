@@ -257,24 +257,6 @@ cat @.claude/knowledge/patterns/async-*.md
 
 ---
 
-## 自动化支持（Automation）
-
-### 脚本工具
-
-项目提供以下脚本支持错误处理工作流：
-
-1. **check_compliance.py**：检查规范合规性
-2. **validate_template.py**：验证模板完整性
-
-### 使用示例
-
-```bash
-# 在完成错误处理后运行验证
-python .claude/scripts/check_compliance.py
-```
-
----
-
 ## 最佳实践（Best Practices）
 
 ### 1. 及时性

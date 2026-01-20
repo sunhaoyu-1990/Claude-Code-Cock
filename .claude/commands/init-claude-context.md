@@ -357,7 +357,7 @@ ls .claude/SPECS/*/spec.md 2>/dev/null
    ### 下一步操作
    1. 检查生成的 CLAUDE.md
    2. 修改占位符内容
-   3. 运行验证：python .claude/scripts/validate_template.py
+   3. 根据项目实际情况调整配置
    ```
 
 ---
@@ -745,8 +745,7 @@ docs/          # 文档
 ### 下一步操作
 
 1. 检查生成的 CLAUDE.md
-2. 运行验证：python .claude/scripts/validate_template.py
-3. 根据需要调整内容
+2. 根据项目实际情况调整内容
 ```
 
 ---
@@ -775,34 +774,9 @@ docs/          # 文档
 
 ---
 
-## 步骤 7：验证生成的配置
+## 步骤 7：输出完成报告
 
-### 7.1 运行验证脚本
-
-```bash
-python .claude/scripts/validate_template.py
-```
-
-### 7.2 处理验证结果
-
-**如果验证通过**：
-```markdown
-✅ CLAUDE.md 模板验证通过
-```
-
-**如果验证失败**：
-```markdown
-❌ CLAUDE.md 存在未填写的必填项:
-  - 未填写: {项目名称}
-
-请手动修复后重新运行验证。
-```
-
----
-
-## 步骤 8：输出完成报告
-
-### 8.1 自动模式报告
+### 7.1 自动模式报告
 
 ```markdown
 ## ✅ 新项目 CLAUDE.md 初始化完成（自动模式）
@@ -837,11 +811,7 @@ python .claude/scripts/validate_template.py
 
 1. 检查生成的 CLAUDE.md 文件
 2. 根据项目实际情况调整占位符内容
-3. 运行验证脚本：
-   ```bash
-   python .claude/scripts/validate_template.py
-   ```
-4. 根据需要启用 Extension，参考：
+3. 根据需要启用 Extension，参考：
    - [Extension 启用指南](.claude/EXTENSIONS_GUIDE.md)
 
 ### 快速开始命令
@@ -877,10 +847,7 @@ python .claude/scripts/validate_template.py
 ### 下一步操作
 
 1. 检查生成的 CLAUDE.md 文件
-2. 运行验证脚本：
-   ```bash
-   python .claude/scripts/validate_template.py
-   ```
+2. 根据项目实际情况调整配置
 3. 开始使用 Claude Code：
    - 创建功能分支：/branch feature/001-initial-feature
    - 或使用 Speckit Skill Chain：/speckit-specify

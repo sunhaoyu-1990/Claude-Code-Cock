@@ -58,19 +58,15 @@
 - [ ] 依赖与能力边界已定义
 - [ ] 模块边界与职责已说明
 
-**验证命令**：
-```bash
-python .claude/scripts/validate_template.py
-```
+**验证方法**：
+手动检查所有必填项是否完整
 
 ---
 - [ ] 关键模块说明
 - [ ] 构建与测试命令
 
-**验证命令**：
-```bash
-python .claude/scripts/validate_template.py
-```
+**验证方法**：
+手动检查所有必填项是否完整
 
 ---
 
@@ -223,10 +219,8 @@ python .claude/scripts/validate_template.py
 - [ ] 模板引用：`specs/templates/{template}.md`
 - [ ] 错误知识引用：`@.claude/knowledge/`
 
-**验证命令**：
-```bash
-python .claude/scripts/check_templates.py
-```
+**验证方法**：
+手动检查所有引用路径正确
 
 ### 7.2 编码规范
 
@@ -241,25 +235,9 @@ python .claude/scripts/check_templates.py
 
 ---
 
-## 8. 自动化验证脚本
+## 8. 手动验证检查清单
 
 ### 8.1 运行所有检查
-
-```bash
-# 验证模板占位符
-python .claude/scripts/validate_template.py
-
-# 检查模板文件和引用
-python .claude/scripts/check_templates.py
-
-# 检查规范合规性
-python .claude/scripts/check_compliance.py
-
-# 检查工作流状态
-python .claude/scripts/check_workflow.py
-```
-
-### 8.2 预期结果
 
 所有脚本应返回 `0` 退出码，无错误信息。
 

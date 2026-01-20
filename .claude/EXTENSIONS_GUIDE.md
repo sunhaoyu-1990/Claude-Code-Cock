@@ -236,17 +236,11 @@ Extension 是框架的可选重型约束模块，用于特定类型的项目。
 
 ## Extension 验证
 
-启用 Extension 后，运行验证脚本：
+启用 Extension 后，检查配置：
 
-```bash
-# 检查规范合规性
-python .claude/scripts/check_compliance.py
-
-# 检查模板文件
-python .claude/scripts/check_templates.py
-```
-
-如果 Extension 引用路径错误或文件不存在，脚本会报错。
+- 确认 Extension 引用路径正确
+- 验证 Extension 文件存在
+- 检查 CLAUDE.md 中的引用格式
 
 ---
 

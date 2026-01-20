@@ -114,10 +114,10 @@ feature/008-migrate-to-new-api
 # - 创建 Feature 目录
 # - 复制 spec.md 模板
 
-.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
+# （脚本已移除，请使用手动创建方式）
 ```
 
-**方式二：手动创建**
+**方式一：手动创建**
 
 ```bash
 # 1. 确保在 main 分支且是最新的
@@ -129,9 +129,6 @@ git checkout -b feature/001-add-user-authentication
 
 # 3. 创建 Feature 目录
 mkdir -p specs/001-add-user-authentication
-
-# 4. 初始化 Speckit 工作流（可选）
-python .claude/scripts/workflow_state.py init specs/001-add-user-authentication "Add User Authentication"
 ```
 
 ### 步骤 2：执行 Speckit Skill Chain
@@ -143,9 +140,9 @@ python .claude/scripts/workflow_state.py init specs/001-add-user-authentication 
 # 在 Claude Code 中输入：
 # /skill speckit-specify 添加用户认证功能
 
-# 2. 检查工作流状态
-python .claude/scripts/check_workflow.py
-# 应显示：spec.md ✅
+# 2. 检查生成的文件
+ls specs/001-add-user-authentication/spec.md
+# 应显示：spec.md 文件存在
 
 # 3. 继续后续 skills
 # /skill speckit-clarify
@@ -254,21 +251,15 @@ feature/001-添加用户登录 # 使用中文
 
 ### 自动检测
 
-工作流状态检查脚本会自动检测当前分支：
+检查工作流状态：
 
 ```bash
-# 如果在 feature/001-add-user-authentication 分支上
-python .claude/scripts/check_workflow.py
+# 检查 Feature 目录
+ls specs/<feature-name>/
 
-# 自动检测 Feature 目录为 specs/001-add-user-authentication
-```
-
-### 手动指定
-
-如果自动检测失败，可以手动指定：
-
-```bash
-python .claude/scripts/check_workflow.py specs/001-add-user-authentication
+# 检查必需文件
+ls specs/<feature-name>/spec.md
+ls specs/<feature-name>/plan.md
 ```
 
 ---
@@ -288,7 +279,6 @@ python .claude/scripts/check_workflow.py specs/001-add-user-authentication
 
 - 允许强制推送（谨慎使用）
 - 不需要代码审查（可选）
-- 推送前建议运行：`python .claude/scripts/check_compliance.py`
 
 ---
 
@@ -476,31 +466,14 @@ git commit -m "feat: add feature"
 
 ## 自动化脚本
 
-### 创建功能分支脚本
+### 创建功能分支
 
-框架提供了 PowerShell 脚本来自动创建功能分支：
-
-```powershell
-# 使用 PowerShell 脚本（推荐）
-.claude/scripts/powershell/create-new-feature.ps1 "Add user authentication"
-
-# 指定短名称
-.claude/scripts/powershell/create-new-feature.ps1 "Implement OAuth2" -ShortName "oauth2"
-
-# 指定分支编号
-.claude/scripts/powershell/create-new-feature.ps1 "Add feature" -Number 5
-
-# 输出 JSON 格式（用于脚本集成）
-.claude/scripts/powershell/create-new-feature.ps1 "Add feature" -Json
-```
-
-**脚本功能**：
-- 自动获取下一个分支编号
-- 根据描述生成语义化分支名
-- 创建 Git 分支
-- 创建对应的 Feature 目录
-- 复制 spec.md 模板
-- 设置环境变量 `SPECIFY_FEATURE`
+手动创建功能分支：
+1. 获取下一个分支编号
+2. 创建语义化分支名
+3. 创建 Git 分支
+4. 创建对应的 Feature 目录
+5. 复制 spec.md 模板
 
 ---
 

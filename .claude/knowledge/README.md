@@ -1,33 +1,79 @@
-# 错误知识库使用说明（Claude 指南）
+# 错误知识库（Error Knowledge Base）
 
-本目录用于沉淀可复用的错误经验。
+## 🚨 快速入口
 
-Claude 在以下情况下必须记录错误：
-- 修复 bug
-- 引入 workaround
-- 用户指出历史问题
-- 出现非预期行为
+**当用户说"总结到知识库"时，立即执行：**
 
-## Claude 操作流程（强制）
+```bash
+# 1. 读取工作流文件
+Read @.claude/knowledge/ERROR_WORKFLOW.md
 
-1. 判断问题是否属于已有 Pattern
-2. 如果是：
-   - 新增一个 Case
-   - 更新 Pattern 的“关联案例”
-3. 如果不是：
-   - 创建新的 Case
-   - 若具备通用性，创建新的 Pattern
-4. 更新 index.md（如有新增 Pattern）
+# 2. 查询现有 Pattern
+ls @.claude/knowledge/patterns/
 
-## 写入规则
+# 3. 按工作流程创建 Case/Pattern
+```
 
-- Case 写入：.claude/knowledge/cases/
-- Pattern 写入：.claude/knowledge/patterns/
-- 不允许覆盖历史内容
-- 允许在 Pattern 中合并总结
+---
 
-## 输出要求
+## 目录结构
 
-- 结构必须严格遵循模板
-- 语言偏工程化，避免情绪化描述
-- 必须包含“改进动作”
+```
+.claude/knowledge/
+├── ERROR_WORKFLOW.md      # 🔴 必读：错误处理工作流
+├── README.md              # 本文件：知识库入口
+├── patterns/              # 错误模式（可复用的错误类型）
+│   ├── algorithm-scenario-assumption.md
+│   ├── cuda-memory-out-of-bounds.md
+│   └── ...
+└── cases/                 # 错误案例（具体实例）
+    ├── 005-curved-road-boundary-error.md
+    ├── 006-retrograde-detection-jitter-filter.md
+    └── ...
+```
+
+---
+
+## 核心文件
+
+### 1. ERROR_WORKFLOW.md（必读）
+
+定义了完整的错误处理流程，包括：
+- 触发条件
+- 工作流程
+- Case/Pattern 模板
+- 最佳实践
+
+### 2. patterns/（错误模式）
+
+定义一类错误的通用模式和预防措施。
+
+### 3. cases/（错误案例）
+
+记录具体的错误实例，关联到对应的 Pattern。
+
+---
+
+## 使用流程
+
+### 当用户提到错误相关词汇时：
+
+1. **触发**：用户说"总结到知识库"、"有什么经验教训"
+2. **读取**：立即读取 `ERROR_WORKFLOW.md`
+3. **查询**：查询现有 Pattern
+4. **创建**：根据模板创建 Case/Pattern
+5. **验证**：执行完成检查
+
+### 禁止行为
+
+- ❌ 不得跳过 ERROR_WORKFLOW.md 的读取
+- ❌ 不得在未查询现有 Pattern 的情况下创建新 Pattern
+- ❌ 不得直接创建文件而未执行完整流程
+
+---
+
+## 相关文档
+
+- **主规范**：`CLAUDE.md` 第 19 节
+- **模板目录**：`.claude/templates/`
+- **规格说明**：`specs/README.md`

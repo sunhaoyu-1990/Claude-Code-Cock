@@ -361,9 +361,42 @@ speckit-specify → speckit-clarify → speckit-plan → speckit-checklist → s
 
 ## 1️⃣9️⃣ 错误知识库
 
-**开发前必查**：优先查询 @.claude/knowledge/patterns/ 中与项目相关的错误模式。
+**开发前必查**：优先查询 `@.claude/knowledge/patterns/` 中与项目相关的错误模式。
 
-**错误总结流程**：参考 @.claude/knowledge/ERROR_WORKFLOW.md
+**错误总结流程**：参考 `@.claude/knowledge/ERROR_WORKFLOW.md`
+
+### 🚨 强制触发条件
+
+当对话中出现以下**任一情况**时，Claude **必须立即**执行错误总结流程：
+
+#### 用户明确提及（强制触发）
+- 用户说："总结到知识库"、"记录错误"、"提取经验"
+- 用户问："有什么经验教训"、"是否需要总结"
+- 用户指出问题或错误
+
+#### 开发活动触发（自动触发）
+- 修复 bug 后
+- 引入 workaround 后
+- 发现非预期行为或结果
+- 用户报告问题
+- 测试失败需要多次调试
+
+### 触发流程（必须遵守）
+
+```markdown
+当检测到触发条件时：
+
+1️⃣ 立即读取 ERROR_WORKFLOW.md 了解完整流程
+2️⃣ 执行"触发检查"（Trigger Check）
+3️⃣ 查询现有 Pattern（ls @.claude/knowledge/patterns/）
+4️⃣ 创建或更新 Case/Pattern
+5️⃣ 执行完成验证检查
+```
+
+**禁止行为**：
+- ❌ 不得跳过 ERROR_WORKFLOW.md 的读取
+- ❌ 不得直接创建文件而未执行完整流程
+- ❌ 不得在未查询现有 Pattern 的情况下创建新 Pattern
 
 ---
 
